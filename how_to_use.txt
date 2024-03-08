@@ -2,16 +2,15 @@ Create a new user:
 -------------------
 curl -X POST -H "Content-Type: application/json" \
      -d '{"username": "johndoe", "first_name": "John", "surname": "Doe", "address": "123 Main St", "telephone_number": "1234567890", "country_code": "US", "post_code": "12345", "email": "john.doe@example.com", "date_of_birth": "28-03-1990"}' \
-     http://localhost:5000/users
+     http://localhost:5000/users/users
 
 curl -X POST -H "Content-Type: application/json" \
      -d '{"username": "johndoe2", "first_name": "John", "surname": "Doe", "address": "123 Main St", "telephone_number": "1234567890", "country_code": "US", "post_code": "12345", "email": "john.doe2@example.com", "date_of_birth": "28-03-1990"}' \
-     http://localhost:5000/users
+     http://localhost:5000/users/users
 
 
 POST /users
 Content-Type: application/json
-
 {
   "username": "johndoe",
   "first_name": "John",
@@ -27,10 +26,6 @@ Content-Type: application/json
 
 
 
-
-
-
-
 ------------------
 Get a user by ID:
 ------------------
@@ -40,23 +35,32 @@ curl http://localhost:5000/users/1
 
 
 
+
+
+
 -----------------
 Get all users:
 -----------------
 GET /users
-curl http://localhost:5000/users
+curl http://localhost:5000/users/users
+
+
+
+
+
+
 
 
 ---------------
 Update a user:
 ---------------
-curl -X PUT -H "Content-Type: application/json" \
-     -d '{"email": "john.doe@newemail.com"}' \
-     http://localhost:5000/users/1
+curl -X PUT -H "Content-Type: application/json" -d '{"email": "john.doe@newemail.com"}' http://localhost:5000/users/users/1
 
 PUT /users/1
 Content-Type: application/json
-
 {
   "email": "john.doe@newemail.com"
 }
+
+
+

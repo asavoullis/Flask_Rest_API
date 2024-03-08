@@ -1,6 +1,7 @@
 from models import User, db
 from datetime import datetime
 
+
 class UserRepository:
     def create_user(self, user_data):
         # print("Calling create_user method in UserRepository")
@@ -15,11 +16,15 @@ class UserRepository:
         db.session.commit()
         return new_user
 
+
     def get_user_by_id(self, user_id):
+        # print(f"Inside get_user_by_id repository with user_id: {user_id}")
         return User.query.get(user_id)
+
 
     def get_all_users(self):
         return User.query.all()
+
 
     def update_user(self, user_id, user_data):
         user = User.query.get(user_id)
@@ -29,3 +34,13 @@ class UserRepository:
             db.session.commit()
             return user
         return None
+
+
+    def delete_user(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            return True
+        return False
+
