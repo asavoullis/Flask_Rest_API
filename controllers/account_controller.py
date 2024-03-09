@@ -40,3 +40,7 @@ def delete_account(account_id):
         return jsonify({'message': 'Account deleted successfully'}), 200
     else:
         return jsonify({'message': 'Account not found'}), 404
+
+@account_bp.route('/user/<int:user_id>', methods=['GET'])
+def get_accounts_by_user_id(user_id):
+    return jsonify(account_service.get_accounts_by_user_id(user_id))

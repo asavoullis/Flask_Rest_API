@@ -18,3 +18,7 @@ class AccountService:
 
     def delete_account(self, account_id):
         return self.account_repository.delete_account(account_id)
+    
+    def get_accounts_by_user_id(self, user_id):
+        accounts = self.account_repository.get_accounts_by_user_id(user_id)
+        return [account.to_dict() for account in accounts]

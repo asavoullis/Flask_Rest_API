@@ -29,3 +29,6 @@ class AccountRepository:
             db.session.commit()
             return True
         return False
+    
+    def get_accounts_by_user_id(self, user_id):
+        return Account.query.filter_by(user_id=user_id).all()

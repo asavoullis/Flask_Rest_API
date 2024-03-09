@@ -27,5 +27,12 @@ class Account(db.Model):
             'id': self.id,
             'account_number': self.account_number,
             'balance': self.balance,
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'account_type': self.account_type,
+            'currency': self.currency,
+            'is_active': self.is_active,
+            'created_at': self.created_at,
+            'last_updated_at': self.last_updated_at,
+            'credit': self.credit,
+            'debit': self.debit
         }
