@@ -6,3 +6,4 @@ src
 __pycache__
 migrations
 instance
+requirements_main.txt
