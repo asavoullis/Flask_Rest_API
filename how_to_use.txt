@@ -1,3 +1,9 @@
+Migrations
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
 Create a new user:
 -------------------
 curl -X POST -H "Content-Type: application/json" \
@@ -30,10 +36,7 @@ Content-Type: application/json
 Get a user by ID:
 ------------------
 GET /users/1
-
-curl http://localhost:5000/users/1
-
-
+curl http://localhost:5000/users/users/1
 
 
 
@@ -46,21 +49,55 @@ curl http://localhost:5000/users/users
 
 
 
-
-
+-----------------
+Delete a user by id:
+-----------------
+GET /users
+curl -X DELETE http://localhost:5000/users/users/1
 
 
 
 ---------------
 Update a user:
 ---------------
+PUT /users/1
 curl -X PUT -H "Content-Type: application/json" -d '{"email": "john.doe@newemail.com"}' http://localhost:5000/users/users/1
 
-PUT /users/1
-Content-Type: application/json
-{
-  "email": "john.doe@newemail.com"
-}
 
 
 
+
+--------------------------------------------------------------------------------------------------------------
+-- Account
+
+-------------------
+create an account:
+-------------------
+curl -X POST -H "Content-Type: application/json" -d '{"account_number": "1234567890", "account_type": "Savings", "balance": 5000.0, "user_id": 1}' http://localhost:5000/accounts/
+
+
+
+------------------
+Get an account by ID:
+------------------
+GET /accounts/1
+curl http://localhost:5000/accounts/accounts/1
+
+
+
+
+
+------------------
+Get all accounts:
+------------------
+GET /accounts
+curl http://localhost:5000/accounts/accounts
+
+
+
+
+-----------------
+Delete an account by id:
+-----------------
+GET /account
+curl -X DELETE http://localhost:5000/accounts/accounts/1
