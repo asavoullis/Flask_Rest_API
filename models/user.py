@@ -17,3 +17,18 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'first_name': self.first_name,
+            'surname': self.surname,
+            'address': self.address,
+            'telephone_number': self.telephone_number,
+            'country_code': self.country_code,
+            'post_code': self.post_code,
+            'email': self.email,
+            'is_active': self.is_active,
+            'date_of_birth': self.date_of_birth.strftime('%d-%m-%Y')
+        }
