@@ -44,3 +44,27 @@ class UserRepository:
             return True
         return False
 
+
+    def activate_user(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            if user.is_active:
+                # User is already active, return appropriate message
+                return "User is already active"
+            else:
+                user.is_active = True
+                db.session.commit()
+                return "User activated successfully"
+        return "User not found"
+
+    def deactivate_user(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            if not user.is_active:
+                # User is already deactivated, return appropriate message
+                return "User is already deactivated"
+            else:
+                user.is_active = False
+                db.session.commit()
+                return "User deactivated successfully"
+        return "User not found"

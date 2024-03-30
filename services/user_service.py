@@ -26,3 +26,17 @@ class UserService:
 
     def delete_user(self, user_id):
         return self.user_repository.delete_user(user_id)
+
+    def activate_user(self, user_id):
+        result = self.user_repository.activate_user(user_id)
+        if result == "User activated successfully":
+            return True
+        else:
+            return False, result
+
+    def deactivate_user(self, user_id):
+        result = self.user_repository.deactivate_user(user_id)
+        if result == "User deactivated successfully":
+            return True
+        else:
+            return False, result
