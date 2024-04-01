@@ -5,6 +5,8 @@ flask db init
 flask db migrate -m "initial migration"
 flask db upgrade -m "updated x"
 
+flask db migrate -m "Add Transaction model"
+flask db upgrade
 
 
 --------------------------------------------------------------------------------------------------------------
@@ -37,13 +39,11 @@ Content-Type: application/json
 
 
 
-
 ------------------
 Get a user by ID:
 ------------------
 GET /users/1
 curl http://localhost:5000/users/users/1
-
 
 
 
@@ -71,8 +71,6 @@ curl -X PUT -H "Content-Type: application/json" -d '{"email": "john.doe@newemail
 
 
 
-
-
 --------------------------------------------------------------------------------------------------------------
 Account
 
@@ -83,9 +81,9 @@ curl -X POST -H "Content-Type: application/json" -d '{"account_number": "1234567
 
 
 
-------------------
+---------------------
 Get an account by ID:
-------------------
+---------------------
 GET /accounts/1
 curl http://localhost:5000/accounts/accounts/1
 
@@ -115,9 +113,38 @@ curl -X PUT -H "Content-Type: application/json" -d '{"balance": 6000.0}' http://
 
 
 
-------------------------
+--------------------------------------------
 Get all accounts from a particular user id:
-------------------------
+--------------------------------------------
 GET /accounts/user
 curl http://localhost:5000/accounts/user/1
+
+
+
+--------------------------------------------------------------------------------------------------------------
+Transaction
+
+---------------------------------------
+Deposit into an account by account id:
+---------------------------------------
+POST /accounts/accounts/1/deposit
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 500}' http://localhost:5000/accounts/accounts/1/deposit
+
+
+
+---------------------------------------
+Withdraw from an account by account id:
+---------------------------------------
+POST /accounts/accounts/1/withdraw
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 500}' http://localhost:5000/accounts/accounts/1/withdraw
+
+
+
+---------------------------------------
+Get Transactions of an account by account id:
+---------------------------------------
+GET /accounts/accounts/1/transactions 
+curl http://localhost:5000/accounts/1/transactions
+
+
 

@@ -4,3 +4,4 @@ Flask-SQLAlchemy==2.4.3
 SQLAlchemy==1.4.31
 Flask-Migrate==3.1.0
 alembic==1.7.5
+Werkzeug==1.0.1
