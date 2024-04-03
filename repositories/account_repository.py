@@ -32,3 +32,27 @@ class AccountRepository:
     
     def get_accounts_by_user_id(self, user_id):
         return Account.query.filter_by(user_id=user_id).all()
+
+
+
+    def activate_account(self, account_id):
+        account = Account.query.get(account_id)
+        if account:
+            if account.is_active:
+                return "Account is already active"
+            else:
+                account.is_active = True
+                db.session.commit()
+                return "Account activated successfully"
+        return "Account not found"
+
+    def deactivate_account(self, account_id):
+        account = Account.query.get(account_id)
+        if account:
+            if not account.is_active:
+                return "Account is already deactivated"
+            else:
+                account.is_active = False
+                db.session.commit()
+                return "Account deactivated successfully"
+        return "Account not found"

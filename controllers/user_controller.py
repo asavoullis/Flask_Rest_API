@@ -62,15 +62,16 @@ def delete_user(user_id):
 def activate_user(user_id):
     activated, message = user_service.activate_user(user_id)
     if activated:
-        return jsonify({'message': 'User account activated successfully'}), 200
+        return jsonify({'message': 'User activated successfully'}), 200
     else:
         return jsonify({'message': message}), 400
+
 
 @user_bp.route('/users/<int:user_id>/deactivate', methods=['PUT'])
 def deactivate_user(user_id):
     deactivated, message = user_service.deactivate_user(user_id)
     if deactivated:
-        return jsonify({'message': 'User account deactivated successfully'}), 200
+        return jsonify({'message': 'User deactivated successfully'}), 200
     else:
         return jsonify({'message': message}), 400
     

@@ -28,6 +28,7 @@ class AccountService:
         return [account.to_dict() for account in accounts]
 
 
+# transactions
     def deposit_into_account(self, account_id, amount):
         # print(f"Deposit into account with ID: {account_id}, Amount: {amount}")
         account = self.get_account_by_id(account_id)
@@ -47,6 +48,7 @@ class AccountService:
             print(f"Account with ID {account_id} not found")
         return None
 
+
     def withdraw_from_account(self, account_id, amount):
         account = self.get_account_by_id(account_id)
         if account and account.balance >= amount:
@@ -60,3 +62,17 @@ class AccountService:
             self.transaction_service.create_transaction(transaction_data)
             return account
         return None
+
+    def activate_account(self, account_id):
+        result = self.account_repository.activate_account(account_id)
+        if result == "Account activated successfully":
+            return True, result
+        else:
+            return False, result
+
+    def deactivate_account(self, account_id):
+        result = self.account_repository.deactivate_account(account_id)
+        if result == "Account deactivated successfully":
+            return True, result
+        else:
+            return False, result

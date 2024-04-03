@@ -71,6 +71,20 @@ curl -X PUT -H "Content-Type: application/json" -d '{"email": "john.doe@newemail
 
 
 
+--------------------------------------------
+Activate a user:
+--------------------------------------------
+curl -X PUT http://localhost:5000/users/users/1/activate
+
+
+
+--------------------------------------------
+Deactivate a user:
+--------------------------------------------
+curl -X PUT http://localhost:5000/users/users/1/deactivate
+
+
+
 --------------------------------------------------------------------------------------------------------------
 Account
 
@@ -122,16 +136,16 @@ curl http://localhost:5000/accounts/user/1
 
 
 --------------------------------------------
-Activate a user:
+Activate a account:
 --------------------------------------------
-curl -X PUT http://localhost:5000/users/users/1/activate
+curl -X PUT http://localhost:5000/accounts/accounts/1/activate
 
 
 
 --------------------------------------------
-Deactivate a user:
+Deactivate an account:
 --------------------------------------------
-curl -X PUT http://localhost:5000/users/users/1/deactivate
+curl -X PUT http://localhost:5000/accounts/accounts/1/deactivate
 
 
 --------------------------------------------------------------------------------------------------------------

@@ -84,7 +84,6 @@ def withdraw_from_account(account_id):
     if withdraw_amount is None or withdraw_amount <= 0:
         return jsonify({'message': 'Invalid withdraw amount'}), 400
 
-
     account = account_service.withdraw_from_account(account_id, withdraw_amount)
     if account:
         return jsonify(account.to_dict()), 200
@@ -100,3 +99,21 @@ def get_account_transactions(account_id):
 
     transactions = transaction_service.get_account_transactions(account_id)
     return jsonify(transactions), 200
+
+
+# activate - deactivate accounts
+@account_bp.route('/accounts/<int:account_id>/activate', methods=['PUT'])
+def activate_account(account_id):
+    activated, message = account_service.activate_account(account_id)
+    if activated:
+        return jsonify({'message': 'Account activated successfully'}), 200
+    else:
+        return jsonify({'message': message}), 400
+
+@account_bp.route('/accounts/<int:account_id>/deactivate', methods=['PUT'])
+def deactivate_account(account_id):
+    deactivated, message = account_service.deactivate_account(account_id)
+    if deactivated:
+        return jsonify({'message': 'Account deactivated successfully'}), 200
+    else:
+        return jsonify({'message': message}), 400
