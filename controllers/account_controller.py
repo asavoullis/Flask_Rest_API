@@ -42,41 +42,33 @@ def update_account(account_id):
 
 @account_bp.route('/accounts/<int:account_id>', methods=['DELETE'])
 def delete_account(account_id):
-    deleted = account_service.delete_account(account_id)
+    deleted, message = account_service.delete_account(account_id)
     if deleted:
         return jsonify({'message': 'Account deleted successfully'}), 200
     else:
-        return jsonify({'message': 'Account not found'}), 404
+        return jsonify({'message': message}), 400
 
 @account_bp.route('/user/<int:user_id>', methods=['GET'])
 def get_accounts_by_user_id(user_id):
     return jsonify(account_service.get_accounts_by_user_id(user_id))
 
 
-
-
 # transactions
 @account_bp.route('/accounts/<int:account_id>/deposit', methods=['POST'])
 def deposit_into_account(account_id):
-    # print(f"Received account_id: {account_id}")  
     deposit_data = request.get_json()
-    # print(deposit_data)
     deposit_amount = deposit_data.get('amount')
     if deposit_amount is None or deposit_amount <= 0:
-        print("Invalid deposit amount")
         return jsonify({'message': 'Invalid deposit amount'}), 400
 
     result = account_service.deposit_into_account(account_id, deposit_amount)
     if result:
         account_data, transaction_data = result
-        # print(f"Account data: {account_data}")
-        # print(f"Transaction data: {transaction_data}")
         return jsonify({
             'account': account_data,
             'transaction': transaction_data
         }), 200
     else:
-        print("Deposit failed")
         return jsonify({'message': 'Deposit failed'}), 400
 
 
@@ -93,7 +85,6 @@ def withdraw_from_account(account_id):
     else:
         return jsonify({'message': 'Withdrawal failed'}), 400
 
-
 @account_bp.route('/accounts/<int:account_id>/transactions', methods=['GET'])
 def get_account_transactions(account_id):
     account = account_service.get_account_by_id(account_id)
@@ -103,8 +94,6 @@ def get_account_transactions(account_id):
     transactions = transaction_service.get_account_transactions(account_id)
     return jsonify(transactions), 200
 
-
-# activate - deactivate accounts
 @account_bp.route('/accounts/<int:account_id>/activate', methods=['PUT'])
 def activate_account(account_id):
     activated, message = account_service.activate_account(account_id)

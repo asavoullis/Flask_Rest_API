@@ -33,15 +33,16 @@ class AccountRepository:
     def delete_account(self, account_id):
         account = Account.query.get(account_id)
         if account:
-            db.session.delete(account)
-            db.session.commit()
-            return True
-        return False
+            if account.balance == 0.0:
+                db.session.delete(account)
+                db.session.commit()
+                return True
+            else:
+                return False, "Cannot delete account with non-zero balance"
+        return False, "Account not found"
     
     def get_accounts_by_user_id(self, user_id):
         return Account.query.filter_by(user_id=user_id).all()
-
-
 
     def activate_account(self, account_id):
         account = Account.query.get(account_id)
