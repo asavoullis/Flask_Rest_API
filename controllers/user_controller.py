@@ -71,7 +71,6 @@ def activate_user(user_id):
 def deactivate_user(user_id):
     deactivated, message = user_service.deactivate_user(user_id)
     if deactivated:
-        return jsonify({'message': 'User deactivated successfully'}), 200
+        return jsonify({'message': message}), 200
     else:
-        return jsonify({'message': message}), 400
-    
+        return jsonify({'message': message}), 400 

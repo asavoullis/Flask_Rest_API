@@ -11,8 +11,11 @@ transaction_service = TransactionService()
 @account_bp.route('/accounts', methods=['POST'])
 def create_account():
     account_data = request.get_json()
-    new_account = account_service.create_account(account_data)
-    return jsonify(new_account.to_dict()), 201
+    new_account, error_message = account_service.create_account(account_data)
+    if new_account:
+        return jsonify(new_account.to_dict()), 201
+    else:
+        return jsonify({'message': error_message}), 400
 
 @account_bp.route('/accounts/<int:account_id>', methods=['GET'])
 def get_account(account_id):

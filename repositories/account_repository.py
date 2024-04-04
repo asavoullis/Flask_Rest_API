@@ -1,11 +1,19 @@
-from models import Account, db
+# account_repository.py
+from models import Account, User, db
 
 class AccountRepository:
     def create_account(self, account_data):
-        new_account = Account(**account_data)
-        db.session.add(new_account)
-        db.session.commit()
-        return new_account
+        user = User.query.get(account_data['user_id'])
+        if user:
+            if user.is_active:
+                new_account = Account(**account_data)
+                db.session.add(new_account)
+                db.session.commit()
+                return new_account
+            else:
+                return None, "User is not active"
+        else:
+            return None, "User not found"
 
     def get_account_by_id(self, account_id):
         return Account.query.get(account_id)

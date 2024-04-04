@@ -1,4 +1,5 @@
-from models import User, db
+# user_repository.py
+from models import User, Account, db
 from datetime import datetime
 
 
@@ -58,13 +59,32 @@ class UserRepository:
         return "User not found"
 
     def deactivate_user(self, user_id):
+        # Query the database for a User object with the given user_id
         user = User.query.get(user_id)
+        
+        # Check if a user with the given user_id was found
         if user:
+            # Check if the user is not active (i.e., the user is already deactivated)
             if not user.is_active:
-                # User is already deactivated, return appropriate message
-                return "User is already deactivated"
+                # If the user is already deactivated, return a message stating so
+                return False, "User is already deactivated"
             else:
-                user.is_active = False
-                db.session.commit()
-                return "User deactivated successfully"
-        return "User not found"
+                # query the Account table to find any accounts with user_id passed
+                accounts = Account.query.filter_by(user_id=user.id).all()
+                # if NOT any of those accounts have balance greater than 0:
+                if not any(account.balance > 0.0 for account in accounts):
+                    # If all accounts have a balance of 0.0, set the user's is_active attribute to False
+                    user.is_active = False
+                    
+                    # Commit the changes made to the user (i.e., the deactivation) to the database
+                    db.session.commit()
+                    
+                    # Return a message stating that the user was successfully deactivated
+                    return True, "User deactivated successfully"
+                else:
+                    print("hello")
+                    # If not all of the user's accounts have a balance of 0.0, return a message stating so
+                    return False, "Cannot deactivate user with active accounts"
+        # If no user with the given user_id was found, return a message stating so
+        return False, "User not found"
+
