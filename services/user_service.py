@@ -30,13 +30,13 @@ class UserService:
     def activate_user(self, user_id):
         result = self.user_repository.activate_user(user_id)
         if result == "User activated successfully":
-            return True
+            return True, result
         else:
             return False, result
 
     def deactivate_user(self, user_id):
         result = self.user_repository.deactivate_user(user_id)
         if result == "User deactivated successfully":
-            return True
+            return True, result
         else:
             return False, result
