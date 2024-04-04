@@ -51,11 +51,11 @@ def update_user(user_id):
 @user_bp.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     # print(f"Received DELETE request to delete user with ID: {user_id}")
-    deleted = user_service.delete_user(user_id)
+    deleted, message = user_service.delete_user(user_id)
     if deleted:
-        return jsonify({'message': 'User deleted successfully'}), 200
+        return jsonify({'message': message}), 200
     else:
-        return jsonify({'message': 'User not found'}), 404
+        return jsonify({'message': message}), 404
 
 
 @user_bp.route('/users/<int:user_id>/activate', methods=['PUT'])

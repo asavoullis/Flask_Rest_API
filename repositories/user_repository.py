@@ -40,10 +40,17 @@ class UserRepository:
     def delete_user(self, user_id):
         user = User.query.get(user_id)
         if user:
-            db.session.delete(user)
-            db.session.commit()
-            return True
-        return False
+            # Check if the user has any active accounts
+            active_accounts = Account.query.filter_by(user_id=user.id, is_active=True).all()
+            if active_accounts:
+                # If the user has active accounts, return a message indicating that the user cannot be deleted
+                return False, "Cannot delete user with active accounts. Please deactivate the accounts first."
+            else:
+                # If the user does not have any active accounts, proceed with the deletion
+                db.session.delete(user)
+                db.session.commit()
+                return True
+        return False, "User not found"
 
 
     def activate_user(self, user_id):
